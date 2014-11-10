@@ -33,6 +33,33 @@ EOS;
 }
 
 /**
+ * Implements hook_menu().
+ */
+function os2web_frontend_menu() {
+  $items = array();
+
+  $items['admin/config/os2web_frontend'] = array(
+    'title' => 'OS2Web CP Service',
+    'position' => 'right',
+    'weight' => -15,
+    'access arguments' => array('administer os2web'),
+    'page callback' => 'system_admin_menu_block_page',
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  $items['admin/config/os2web_frontend/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'Configure OS2Web Frontend',
+    'access arguments' => array('administer os2web'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('os2web_frontend_settings'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+}
+
+
+/**
  * Implements hook_menu_minipanels_styles().
  *
  * Adds extra style selection for minipanel
@@ -59,7 +86,9 @@ function os2web_frontend_menu_minipanels_style($menu_config) {
  *
  * Add configuration to the settings form.
  */
-function os2web_frontend_form_os2web_settings_settings_form_alter(&$form, &$form_state) {
+function os2web_frontend_settings() {
+  $form = array();
+
   $form['themesettings'] = array(
     '#type' => 'fieldset',
     '#collapsible' => FALSE,
@@ -72,6 +101,8 @@ function os2web_frontend_form_os2web_settings_settings_form_alter(&$form, &$form
     '#title' => t('Default menu for first sidebar'),
     '#description' => t('Machine name for the menu to be inserted in blank left sidebars'),
   );
+
+  return system_settings_form($form);
 }
 
 /**
