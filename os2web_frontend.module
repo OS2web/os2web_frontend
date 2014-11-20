@@ -39,7 +39,7 @@ function os2web_frontend_menu() {
   $items = array();
 
   $items['admin/config/os2web_frontend'] = array(
-    'title' => 'OS2Web CP Service',
+    'title' => 'OS2Web Frontend',
     'position' => 'right',
     'weight' => -15,
     'access arguments' => array('administer os2web'),
@@ -56,6 +56,8 @@ function os2web_frontend_menu() {
     'page arguments' => array('os2web_frontend_settings'),
     'type' => MENU_NORMAL_ITEM,
   );
+
+  return $items;
 }
 
 
